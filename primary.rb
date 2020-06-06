@@ -2,6 +2,9 @@ require 'ruby2d'
 set title: "visualize lee algorithm"
 set width: 1000
 set height: 1000
+sdfsdfsd
+afsdfs
+
 
 def generate(n, xpos, ypos)
   matrix = []
@@ -13,7 +16,7 @@ def generate(n, xpos, ypos)
             size: 7,
             color: '#f0f0f0',
             z: 1
-          ), 0])
+          ), 0, 0])
       end
       matrix.push(column)
   end
@@ -48,6 +51,12 @@ end
 def assemble(arr)
   arr.each do |el|
     el = identifystartAndEnd(procedurallyGenerateWalls(el))
+  end
+end
+
+def markSuccessPath(arr, matrix)
+  arr.each do |el|
+    matrix[el[0]][el[1]][1].color = "ff5200"
   end
 end
 
@@ -105,6 +114,9 @@ stack8 = []
       if validate(position[1])
        if position[3][position[0]][position[1]][2] === 0
           if position[3][position[0]][position[1]][0] === 0
+           
+
+
             if position[0] === 30
               if position[1] === 30
 
@@ -211,18 +223,44 @@ return
                 end
               end
             end
-            if position[3].length > 0
+           
             position[3][position[0]][position[1]][2] = 1
             position[3][position[0]][position[1]][1].color = "#ffd31d"
             # heuristics
-          
+            position[5].push(position)
 
             fs = []
-            fs.push([position[0]+1, position[1], position[2] += 1, position[3], position[4]])
-            fs.push([position[0]-1, position[1], position[2] += 1, position[3], position[4]])
-            fs.push([position[0], position[1]+1, position[2] += 1, position[3], position[4]])
-            fs.push([position[0], position[1]-1, position[2] += 1, position[3], position[4]])
 
+            # mark adjacent cells as queued.
+            # then queue them.
+            if validate(position[0]+1)
+              if position[3][position[0]+1][position[1]][3] = 0
+                fs.push([position[0]+1, position[1], position[2] += 1, position[3], position[4], position[5]])
+                position[3][position[0]+1][position[1]][3] = 1
+              end
+            end
+
+            if validate(position[0]-1)
+              if position[3][position[0]-1][position[1]][3] = 0
+                fs.push([position[0]-1, position[1], position[2] += 1, position[3], position[4], position[5]])
+                position[3][position[0]-1][position[1]][3] = 1
+              end
+            end
+
+            if validate(position[1]+1)
+              if position[3][position[0]][position[1] + 1][3] = 0
+                fs.push([position[0], position[1]+1, position[2] += 1, position[3], position[4], position[5]])
+                position[3][position[0]][position[1]+1][3] = 1
+              end
+            end
+            if validate(position[1]-1)
+              if position[3][position[0]][position[1] - 1][3] = 0
+                fs.push([position[0], position[1]-1, position[2] += 1, position[3], position[4], position[5]])
+                position[3][position[0]][position[1]-1][3] = 1
+              end
+            end
+            
+            # queue adjacent cells
             fs = fs.sort_by { |el| (el[2] + euclidieanDistance([el[0], el[1]], "end"))}
            
             fs = fs.reverse()
@@ -230,8 +268,8 @@ return
             fs.each do |el|
               el[4].push(el)
             end
-          end
-
+          
+             
             end
           end
        end
@@ -249,15 +287,15 @@ stack7 = []
 stack8 = []
 
 
-stack0.push([0,0,0,$omega[0], stack0])
-stack1.push([0,0,0,$omega[1], stack1])
-stack2.push([0,0,0,$omega[2], stack2])
-stack3.push([0,0,0,$omega[3], stack3])
-stack4.push([0,0,0,$omega[4], stack4])
-stack5.push([0,0,0,$omega[5], stack5])
-stack6.push([0,0,0,$omega[6], stack6])
-stack7.push([0,0,0,$omega[7], stack7])
-stack8.push([0,0,0,$omega[8], stack8])
+stack0.push([0,0,0,$omega[0], stack0,[]])
+stack1.push([0,0,0,$omega[1], stack1,[]])
+stack2.push([0,0,0,$omega[2], stack2,[]])
+stack3.push([0,0,0,$omega[3], stack3,[]])
+stack4.push([0,0,0,$omega[4], stack4,[]])
+stack5.push([0,0,0,$omega[5], stack5,[]])
+stack6.push([0,0,0,$omega[6], stack6,[]])
+stack7.push([0,0,0,$omega[7], stack7,[]])
+stack8.push([0,0,0,$omega[8], stack8,[]])
 
 update do
   1.times do
