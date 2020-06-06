@@ -8,14 +8,7 @@ afsdfs
 asdfasdfsasd
 asdfasdf
 asdfasdfsasd
-asdfasdfsasdasdasd
-
-asdasd
-
-asdasd
-
-asasa
-asdasd
+asd
 
 
 def generate(n, xpos, ypos)
