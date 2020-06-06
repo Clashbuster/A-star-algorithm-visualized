@@ -5,10 +5,7 @@ set height: 1000
 sdfsdfsd
 afsdfs
 
-asdfasdfsasd
-asdfasdf
-asdfasdfsasd
-asd
+
 
 
 def generate(n, xpos, ypos)
